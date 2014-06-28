@@ -1,9 +1,7 @@
-Platformer example using components
------------------------------------
+Third Person Shooter
+--------------------
 A version of the plat former tutorial using the [Component Pattern](http://gameprogrammingpatterns.com/component.html").
 
-<p>Forked from <a href='/loktar00/'>Jason Brown</a>'s Pen <a href='/loktar00/pen/jHwBL/'>Part 1 platformer tutorial</a>.</p>
-
-A [Pen](http://codepen.io/nicolasmccurdy/pen/vhGKr) by [Nicolas McCurdy](http://codepen.io/nicolasmccurdy) on [CodePen](http://codepen.io/).
+Based off of [Jason Brown](https://codepen.io/loktar00/)'s Pen [Part 1 platformer tutorial](https://codepen.io/loktar00/pen/jHwBL).
 
 [License](http://codepen.io/nicolasmccurdy/pen/vhGKr/license).
