@@ -38,12 +38,13 @@ function InputComponent () {
 }
 
 function PhysicsComponent () {
-  var FRICTION = 0.8;
-  var GRAVITY = 0.3;
+  var self = this;
+  this.FRICTION = 0.8;
+  this.GRAVITY = 0.3;
 
   this.update = function(player){
-    player.velX *= FRICTION;
-    player.velY += GRAVITY;
+    player.velX *= self.FRICTION;
+    player.velY += self.GRAVITY;
 
     player.x += player.velX;
     player.y += player.velY;
@@ -63,24 +64,24 @@ function PhysicsComponent () {
 
 function GraphicsComponent () {
   var self = this;
-  var canvas = document.getElementById("canvas");
-  var context = canvas.getContext("2d");
+  this.canvas = document.getElementById("canvas");
+  this.context = this.canvas.getContext("2d");
 
-  canvas.width = WIDTH;
-  canvas.height = HEIGHT;
+  this.canvas.width = WIDTH;
+  this.canvas.height = HEIGHT;
   
   this.update = function(player){
-    context.clearRect(0,0,WIDTH,HEIGHT);
-    context.fillStyle = "red";
-    context.fillRect(player.x, player.y, player.WIDTH, player.HEIGHT);
+    self.context.clearRect(0,0,WIDTH,HEIGHT);
+    self.context.fillStyle = "red";
+    self.context.fillRect(player.x, player.y, player.WIDTH, player.HEIGHT);
   };
 }
 
 function Player () {
   var self = this;
-  var inputComponent = new InputComponent();
-  var physicsComponent = new PhysicsComponent();
-  var graphicsComponent = new GraphicsComponent();
+  this.inputComponent = new InputComponent();
+  this.physicsComponent = new PhysicsComponent();
+  this.graphicsComponent = new GraphicsComponent();
 
   this.x = WIDTH/2;
   this.y = HEIGHT - 5;
@@ -92,9 +93,9 @@ function Player () {
   this.jumping = false;
 
   this.update = function(){
-    inputComponent.update(self);
-    physicsComponent.update(self);
-    graphicsComponent.update(self);
+    self.inputComponent.update(self);
+    self.physicsComponent.update(self);
+    self.graphicsComponent.update(self);
 
     requestAnimationFrame(this);
   };
