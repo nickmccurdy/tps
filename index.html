@@ -6,5 +6,10 @@
   <h3>Arrow keys to move, and space to jump</h3>
   <canvas id="canvas"></canvas>
 
-  <script src="script.js"></script>
+  <script src="https://traceur-compiler.googlecode.com/git/bin/traceur.js"></script>
+  <script src="https://traceur-compiler.googlecode.com/git/src/bootstrap.js"></script>
+  <script>
+    traceur.options.experimental = true;
+  </script>
+  <script type="module" src="script.js"></script>
 </body>
