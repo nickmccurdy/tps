@@ -96,9 +96,9 @@ function Player () {
     physicsComponent.update(self);
     graphicsComponent.update(self);
 
-    requestAnimationFrame(self.update);
+    requestAnimationFrame(this);
   };
 }
 
 var currentPlayer = new Player();
-window.addEventListener("load", currentPlayer.update);
+requestAnimationFrame(currentPlayer.update);
