@@ -1,5 +1,5 @@
-var width = 500,
-    height = 200;
+var WIDTH = 500,
+    HEIGHT = 200;
 
 function InputComponent () {
   var self = this;
@@ -19,18 +19,18 @@ function InputComponent () {
       // up arrow or space
       if(!player.jumping){
         player.jumping = true;
-        player.velY = -player.speed*2;
+        player.velY = -player.SPEED*2;
       }
     }
     if (self.keys[39]) {
       // right arrow
-      if (player.velX < player.speed) {
+      if (player.velX < player.SPEED) {
         player.velX++;
       }
     }
     if (self.keys[37]) {
       // left arrow
-      if (player.velX > -player.speed) {
+      if (player.velX > -player.SPEED) {
         player.velX--;
       }
     }
@@ -38,24 +38,24 @@ function InputComponent () {
 }
 
 function PhysicsComponent () {
-  var friction = 0.8;
-  var gravity = 0.3;
+  var FRICTION = 0.8;
+  var GRAVITY = 0.3;
 
   this.update = function(player){
-    player.velX *= friction;
-    player.velY += gravity;
+    player.velX *= FRICTION;
+    player.velY += GRAVITY;
 
     player.x += player.velX;
     player.y += player.velY;
 
-    if (player.x >= width-player.width) {
-      player.x = width-player.width;
+    if (player.x >= WIDTH-player.WIDTH) {
+      player.x = WIDTH-player.WIDTH;
     } else if (player.x <= 0) {
       player.x = 0;
     }
 
-    if(player.y >= height-player.height){
-      player.y = height - player.height;
+    if(player.y >= HEIGHT-player.HEIGHT){
+      player.y = HEIGHT - player.HEIGHT;
       player.jumping = false;
     }
   };
@@ -66,13 +66,13 @@ function GraphicsComponent () {
   var canvas = document.getElementById("canvas");
   var context = canvas.getContext("2d");
 
-  canvas.width = width;
-  canvas.height = height;
+  canvas.width = WIDTH;
+  canvas.height = HEIGHT;
   
   this.update = function(player){
-    context.clearRect(0,0,width,height);
+    context.clearRect(0,0,WIDTH,HEIGHT);
     context.fillStyle = "red";
-    context.fillRect(player.x, player.y, player.width, player.height);
+    context.fillRect(player.x, player.y, player.WIDTH, player.HEIGHT);
   };
 }
 
@@ -82,11 +82,11 @@ function Player () {
   var physicsComponent = new PhysicsComponent();
   var graphicsComponent = new GraphicsComponent();
 
-  this.x = width/2;
-  this.y = height - 5;
-  this.width = 5;
-  this.height = 5;
-  this.speed = 3;
+  this.x = WIDTH/2;
+  this.y = HEIGHT - 5;
+  this.WIDTH = 5;
+  this.HEIGHT = 5;
+  this.SPEED = 3;
   this.velX = 0;
   this.velY = 0;
   this.jumping = false;
