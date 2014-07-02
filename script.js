@@ -1,7 +1,8 @@
 const WIDTH = 500,
       HEIGHT = 200;
 
-function InputComponent () {
+function InputComponent (player) {
+  this.player = player;
   this.keys = [];
 
   document.body.addEventListener("keydown", (e) => {
@@ -12,72 +13,74 @@ function InputComponent () {
     this.keys[e.keyCode] = false;
   });
 
-  this.update = (player) => {
+  this.update = () => {
     // check keys
     if (this.keys[38] || this.keys[32]) {
       // up arrow or space
-      if(!player.jumping){
-        player.jumping = true;
-        player.velY = -player.SPEED*2;
+      if(!this.player.jumping){
+        this.player.jumping = true;
+        this.player.velY = -this.player.SPEED*2;
       }
     }
     if (this.keys[39]) {
       // right arrow
-      if (player.velX < player.SPEED) {
-        player.velX++;
+      if (this.player.velX < this.player.SPEED) {
+        this.player.velX++;
       }
     }
     if (this.keys[37]) {
       // left arrow
-      if (player.velX > -player.SPEED) {
-        player.velX--;
+      if (this.player.velX > -this.player.SPEED) {
+        this.player.velX--;
       }
     }
   };
 }
 
-function PhysicsComponent () {
+function PhysicsComponent (player) {
+  this.player = player;
   this.FRICTION = 0.8;
   this.GRAVITY = 0.3;
 
-  this.update = (player) => {
-    player.velX *= this.FRICTION;
-    player.velY += this.GRAVITY;
+  this.update = () => {
+    this.player.velX *= this.FRICTION;
+    this.player.velY += this.GRAVITY;
 
-    player.x += player.velX;
-    player.y += player.velY;
+    this.player.x += this.player.velX;
+    this.player.y += this.player.velY;
 
-    if (player.x >= WIDTH-player.WIDTH) {
-      player.x = WIDTH-player.WIDTH;
-    } else if (player.x <= 0) {
-      player.x = 0;
+    if (this.player.x >= WIDTH-this.player.WIDTH) {
+      this.player.x = WIDTH-this.player.WIDTH;
+    } else if (this.player.x <= 0) {
+      this.player.x = 0;
     }
 
-    if(player.y >= HEIGHT-player.HEIGHT){
-      player.y = HEIGHT - player.HEIGHT;
-      player.jumping = false;
+    if(this.player.y >= HEIGHT-this.player.HEIGHT){
+      this.player.y = HEIGHT - this.player.HEIGHT;
+      this.player.jumping = false;
     }
   };
 }
 
-function GraphicsComponent () {
+function GraphicsComponent (player) {
+  this.player = player;
   this.canvas = document.getElementById("canvas");
   this.context = this.canvas.getContext("2d");
 
   this.canvas.width = WIDTH;
   this.canvas.height = HEIGHT;
 
-  this.update = (player) => {
+  this.update = () => {
     this.context.clearRect(0,0,WIDTH,HEIGHT);
     this.context.fillStyle = "red";
-    this.context.fillRect(player.x, player.y, player.WIDTH, player.HEIGHT);
+    this.context.fillRect(this.player.x, this.player.y, this.player.WIDTH, this.player.HEIGHT);
   };
 }
 
 function Player () {
-  this.inputComponent = new InputComponent();
-  this.physicsComponent = new PhysicsComponent();
-  this.graphicsComponent = new GraphicsComponent();
+  this.inputComponent = new InputComponent(this);
+  this.physicsComponent = new PhysicsComponent(this);
+  this.graphicsComponent = new GraphicsComponent(this);
 
   this.x = WIDTH/2;
   this.y = HEIGHT - 5;
@@ -89,9 +92,9 @@ function Player () {
   this.jumping = false;
 
   this.update = () => {
-    this.inputComponent.update(this);
-    this.physicsComponent.update(this);
-    this.graphicsComponent.update(this);
+    this.inputComponent.update();
+    this.physicsComponent.update();
+    this.graphicsComponent.update();
 
     requestAnimationFrame(this.update);
   };
